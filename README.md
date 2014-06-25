@@ -66,6 +66,36 @@ Next, I followed the suggestion of implementing a completely static version of t
 
 I did this by forking the handy jsFiddle template the React developers set up. You can take a look at [my fork here][fid].
 
+Well, I did first screen of the interface, anyway. Since comments are not shown in the main feed, I wasn’t sure how to mock them up while being static, so I looked ahead to the next part of the guide.
+
+## Identifying state within our app
+
+React doesn’t seem to ship with any sort of router concept (being more limited in its scope than many popular frameworks), so I think that may mean considering our “place” within the app to be part of our state.
+
+This means I have a way to finish statically creating the rest of the app, however; I’ll use a top-level component which handles rendering (and eventually animating) the different parts  of the app. In the spirit of starting static, I can set the state of this component as needed to preview the different parts of my app.
+
+State will be needed to handle:
+
+- Whether we are looking at a feed or just one post
+- Which post, if applicable, is being shown
+- Whether the delete modal is shown or not, and which post to delete if the deletion is confirmed
+
+So at the top-level component, I have named “Social” for lack of a better name; now I am creating and using a getInitialState() function. By changing its values, I am able to build and test the post detail view (which is how I’m thinking of the screen that shows comments on a post).
+
+## Can we navigate? Part 1: “Add inverse data flow.”
+
+In React, there is no two-way binding. To change data or state, you have to explicitly throw it back up the view hierarchy. (“React makes this data flow explicit to make it easy to understand how your program works, but it does require a little more typing than traditional two-way data binding.”)
+
+What I want to handle next is navigation (sans animation, at first). But the guide is lending itself more towards handling the automatic enabling of the Post button when the user enters comment text, so I think I’ll take a detour for that.
+
+## Handle change: 
+
+I hadn’t actually added the comment box yet, so I did that next. I added state to the DetailView to track whether or not text has been entered, and instructed React to set that state (as calculated on string length — I’d use trim in production, of course — whenever the input field changes. We will see if React's concept of changing is more immediate than the laggardly browser `change` event.)
+
+## Finally navigating 
+
+
+
 ## Users
 
 (Recognize [Jina][] or anyone else? Crazily enough, I just grabbed these avatars from [UIFaces.com][uif].)
